@@ -1,0 +1,16 @@
+- name: Ensure sysfsutils is installed
+  ansible.builtin.apt:
+    name: sysfsutils
+    state: latest
+    cache_valid_time: 86400
+  notify: Restart sysfsutils
+
+- name: Update sysfsutils config
+  ansible.builtin.template:
+    src: sysfs.conf.j2
+    dest: /etc/sysfs.conf
+    owner: root
+    group: root
+    mode: 0644
+    force: true
+  notify: Restart sysfsutils
